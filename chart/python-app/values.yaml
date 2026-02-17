@@ -1,47 +1,63 @@
 replicaCount: 1
+
 image:
   repository: tyrelfecha/python-app
   pullPolicy: IfNotPresent
-  tag: 6dd6a6
+  tag: latest
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
 serviceAccount:
   create: false
   automount: true
   annotations: {}
   name: ""
+
 podAnnotations: {}
 podLabels: {}
 podSecurityContext: {}
 securityContext: {}
+
 service:
   type: ClusterIP
-  port: 5000
+  port: 8080
+  targetPort: 8080
+
 ingress:
   enabled: true
   className: "nginx"
   annotations: {}
   hosts:
-    - host: python-app.test.com
+    - host: python-probe.local
       paths:
         - path: /
           pathType: Prefix
   tls: []
+
 resources: {}
+
 livenessProbe:
   httpGet:
-    path: /api/v1/healthz
-    port: http
+    path: /live
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
 readinessProbe:
   httpGet:
-    path: /api/v1/healthz
-    port: http
+    path: /ready
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 5
+
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
+
 volumes: []
 volumeMounts: []
 nodeSelector: {}
