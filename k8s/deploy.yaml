@@ -16,6 +16,18 @@ spec:
     spec:
       containers:
       - name: python-app
-        image: tyrelfecha/python-app:v2
+        image: tyrelfecha/python-app:latest
         ports:
-        - containerPort: 5000
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
