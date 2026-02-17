@@ -1,4 +1,4 @@
-# python-probe
+# python-flask-probe
 
 Minimal Python Flask application used for deployment validation across any environment (local, Docker, Kubernetes, ECS, etc.).
 

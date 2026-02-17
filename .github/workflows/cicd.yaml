@@ -1,11 +1,14 @@
 name: cicd
 
 on:
-  push:
-    paths:
-      - src/**
-    brances:
-      - main
+  workflow_dispatch: {}
+  # Manual trigger only to avoid pipeline noise
+  # Uncomment below to enable automatic builds on push
+  # push:
+  #   paths:
+  #     - src/**
+  #   branches:
+  #     - main
 
 jobs:
   ci:
